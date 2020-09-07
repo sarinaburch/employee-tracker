@@ -21,22 +21,55 @@ function firstPrompt() {
         type: "list",
         name: "toDo",
         message: "What would you like to do?",
-        options: [
+        choices: [
         "View All Employees", 
         "View All Employees By Department", 
         "View Employees By Role",
-        // "View Employees By Manager", 
         "Add Employee", 
-        // "Remove Employee", 
         "Add Role", 
         "Add Deparment",
-        // "Remove Role", 
         "Update Employee Role",
-        // "Update Employee Manager", 
         "End"]
-    })
-}
+    }).then(function (answers) {
+        console.log(answers.toDo);
+            switch (answers.toDo) {
+                case "View All Employees":
+                    viewEmployees()
+                    break;
 
+                case "View Employees By Department":
+                    viewDepartments()
+                    break;
+
+                case "View Roles":
+                    viewRole()
+                    break;
+                
+                case "Add New Employee":
+                    addEmployee()
+                    break;
+
+                case "Add Role":
+                    addRole()
+                    break;
+
+                case "Add New Department":
+                    newDepartment()
+                    break;
+
+                case "Update Employee Role":
+                    updateRole()
+                    break;
+
+                default:
+                    connection.end()
+                    break;
+            }       
+        })
+
+
+}
+//prompts for information to add a new employee to systme
 function addEmployee () {
     inquirer.prompt([
         {
@@ -61,14 +94,8 @@ function addEmployee () {
         }
     ])
 
-    // function removeEmployee () {
-    //     inquirer.prompt([{
-    //         type: "input",
-    //         name: "removeEmp",
-    //         message: "Which employee would you like to remove?"
-    //     }])
-    // };
 
+//creates a new role to a specific department
     function addRole() {
         inquirer.prompt([
             {
@@ -88,7 +115,7 @@ function addEmployee () {
             }
         ])
     };
-
+//adds a new department to department list
     function addDepartment() {
         inquirer.prompt([
             {
@@ -99,26 +126,7 @@ function addEmployee () {
         ])
     }
 
-    // function removeRole() {
-    //     inquirer.prompt([
-    //         {
-    //         type: "input",
-    //         message: "Enter role",
-    //         name: "newTitle"
-    //         },
-    //         {
-    //         type: "input",
-    //         message: "Enter new role",
-    //         name: "newRole"
-    //         },
-    //         {
-    //         type: "number",
-    //         message: "Enter Department ID",
-    //         name: "departmentId"
-    //         }
-    //     ])
-    // };
-
+//updates the role for an individual employee
     function updateRole() {
         inquirer.prompt([
             {
@@ -133,20 +141,12 @@ function addEmployee () {
             }
         ])
     }
-// function.createProduct() {
-//     console.log("Inserting a new product...\n");
-//     var query = connection.query(
-//         "Insert INTO products SET ?",
-//         {
-
-//         }
-//     )
-// }
 
 function afterConnection() {
     connection.query("SELECT * FROM employee", function(err, res) {
         if (err) throw err;
         console.table(res);
         connection.end;
-    })
+    });
+}
 }
