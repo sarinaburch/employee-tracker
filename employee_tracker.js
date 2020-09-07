@@ -62,7 +62,12 @@ function firstPrompt() {
 }
 
 function viewEmployees() {
-    connection.query("SELECT * FROM employee", function (err, data) {
+    var query = `
+    SELECT role.title, employee.id, employee.first_name, employee.last_name, employee.manager_id
+    FROM employee
+    LEFT JOIN role
+    ON employee.role_id = role.id`
+    connection.query(query, function (err, data) {
         console.table(data);
         firstPrompt();
     })
@@ -76,7 +81,12 @@ function viewDepartments() {
 }
 
 function viewRole() {
-    connection.query("SELECT * FROM role", function (err, data) {
+    var query = `
+    SELECT department.name, role.id, role.title, role.salary
+    FROM department 
+    INNER JOIN role
+    ON department.id = role.department_id`
+    connection.query(query, function (err, data) {
         console.table(data);
         firstPrompt();
     })
