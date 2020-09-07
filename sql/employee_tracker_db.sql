@@ -26,4 +26,10 @@ CREATE TABLE employee (
     manager_id INTEGER, 
     PRIMARY KEY (id)
 );
+SELECT * FROM department;
+SELECT * FROM role;
 
+SELECT department.id, department.name, role.department_id
+FROM department
+INNER JOIN role
+ON role.department_id = department.id;

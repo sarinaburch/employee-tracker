@@ -117,7 +117,7 @@ function addEmployee() {
             if (err) throw err;
             console.log("Succefully added new employee");
         })
-        viewEmployees();
+        firstPrompt();
     })
 };
 //adds a new department to department list
@@ -138,7 +138,37 @@ function newDepartment() {
     });
 
 };
-
+//updates the role for an individual employee
+function updateRole() {
+    inquirer.prompt([
+        {
+            type: "input",
+            message: "Enter last name of employee you'd like to update",
+            name: "nameUpd"
+        },
+        {
+            type: "number",
+            message: "What is the new Role ID?",
+            name: "roleId"
+        }
+    ]).then(function (res) {
+        const query = connection.query(
+            "UPDATE employee SET ? WHERE ?",
+            [
+            {
+                role_id: res.roleId
+            },
+        {
+                last_name: res.nameUpd
+            }
+        ],
+            function (err, res) {
+                if (err) throw err;
+                viewRole();
+            }
+        )
+    })
+};
 //creates a new role to a specific department
 function addRole() {
     let department = [];
@@ -183,27 +213,5 @@ function addRole() {
 
         });
 
-    //updates the role for an individual employee
-    function updateRole() {
-        inquirer.prompt([
-            {
-                type: "input",
-                message: "Which employee would you like to update?",
-                name: "nameUpd"
-            },
-            {
-                type: "number",
-                message: "What is the new Role ID?",
-                name: "roleId"
-            }
-        ])
-    };
-
-    // function afterConnection() {
-    //     connection.query("SELECT * FROM employee", function(err, res) {
-    //         if (err) throw err;
-    //         console.table(res);
-    //         connection.end;
-    //     });
-    // }
+    
 }
