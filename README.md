@@ -2,7 +2,7 @@
 
 ## Deployed Link
 
-![https://sarinaburch.github.io/employee-tracker/](https://sarinaburch.github.io/employee-tracker/)
+![https://sarinaburch.github.io/employee-tracker/]
 
 ## Installation
         npm i
