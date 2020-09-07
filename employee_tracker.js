@@ -36,39 +36,45 @@ function firstPrompt() {
                 case "View All Employees":
                     viewEmployees()
                     break;
-
                 case "View Employees By Department":
                     viewDepartments()
                     break;
-
                 case "View Roles":
                     viewRole()
-                    break;
-                
+                    break;              
                 case "Add New Employee":
                     addEmployee()
                     break;
-
                 case "Add Role":
                     addRole()
                     break;
-
                 case "Add New Department":
                     newDepartment()
                     break;
-
                 case "Update Employee Role":
                     updateRole()
                     break;
-
                 default:
                     connection.end()
                     break;
             }       
         })
-
-
 }
+
+function viewEmployees() {
+    connection.query("SELECT * FROM employee", function (err, data) {
+        console.table(data);
+        firstPrompt();
+    })
+}
+
+function viewDepartments() {
+    connection.query("SELECT * FROM department", function (err, data) {
+        console.table(data);
+        firstPrompt();
+    })
+}
+
 //prompts for information to add a new employee to systme
 function addEmployee () {
     inquirer.prompt([
