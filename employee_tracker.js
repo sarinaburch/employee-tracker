@@ -62,8 +62,8 @@ function firstPrompt() {
 }
 
 function viewEmployees() {
-    var query = `
-    SELECT role.title, employee.id, employee.first_name, employee.last_name, employee.manager_id
+    var query = 
+    `SELECT role.title, employee.id, employee.first_name, employee.last_name, employee.manager_id
     FROM employee
     LEFT JOIN role
     ON employee.role_id = role.id`
@@ -106,7 +106,8 @@ function addEmployee() {
             message: "Type employee's last name."
         },
         {
-            type: "number",
+            type: "list",
+            choices: ["29", "30", "31", "32", "33", "34", "35"],
             name: "roleId",
             message: "What is the employee's role ID?"
         },
