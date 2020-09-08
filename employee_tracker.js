@@ -63,9 +63,9 @@ function firstPrompt() {
 
 function viewEmployees() {
     var query = 
-    `SELECT role.title, employee.id, employee.first_name, employee.last_name, employee.manager_id
+    `SELECT role.title, employee.first_name, employee.last_name
     FROM employee
-    LEFT JOIN role
+    INNER JOIN role
     ON employee.role_id = role.id`
     connection.query(query, function (err, data) {
         console.table(data);
@@ -182,14 +182,9 @@ function updateRole() {
 };
 //creates a new role to a specific department
 function addRole() {
-    let department = [];
     connection.query("SELECT * FROM department",
         function (err, res) {
-            if (err) throw err;
-            for (let i = 0; i < res.length; i++) {
-                res[i].first_name + " " + res[i].last_name
-                department.push({ name: res[i].name, value: res[i].id });
-            }
+            if (err) throw err;        
             inquirer.prompt([
                 {
                     type: "input",
